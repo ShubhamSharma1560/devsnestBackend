@@ -1,1 +1,86 @@
+Redis
+Redis essentially provides a simple in-memory key-value store. Keys are normal strings or any valid byte sequence. Value can be normal strings or data structures like (linked) lists, sets, sorted sets, hash, and more.
 
+Redis commands
+Basics:
+LOLWUT - Displays random ASCII art and Redis version.
+
+KEYS pattern - Returns all keys that match a given pattern. Supports ?, *, [abc], [a-z] and [^a-z].
+
+EXISTS key [key ...] - If multiple keys are given returns the number of keys that exist. If a key is repeated then it is counted multiple times.
+
+RENAME src dest
+
+COPY src dest
+
+DEL key
+
+FLUSHALL - Remove all keys from all databases.
+
+TYPE key - Returns one of string, list, set, zset, hash and stream. Returns none if key does not exist.
+
+TTL key - Returns -1 if key has no expiration time. Returns -2 if key has expired already or does not exist.
+
+EXPIRE key seconds
+
+PERSIST key - Removes the existing timeout on a key.
+
+Strings:
+SET key value
+
+GET key
+
+MSET key value [key value ...]
+
+MGET key [key ...]
+
+INCR/DECR key - Add BY at end to inc/decrement by any amount. Add BYFLOAT at the end to inc/decrement by float amount.
+
+STRLEN key
+
+APPEND key value
+
+Lists:
+LPUSH/RPUSH key value
+
+LPOP/RPOP key - Prefix with B to block if empty. (Useful for implementing message queues)
+
+LLEN key
+
+LRANGE key start stop - Returns values from start to stop (both inclusive). If any value is negative counts from the end.
+
+Sets:
+SADD key member [member ...]
+
+SREM key member
+
+SMEMBERS key
+
+SMOVE src dest member
+
+SISMEMBER key member
+
+SMISMEMBER key member [member ...]
+
+SINTER/SDIFF/SUNION key [key ...]
+
+SCARD key - Length of set.
+
+Hashes:
+HSET key field value [field value ...]
+
+HGET key field
+
+HEXISTS key field
+
+HMGET key field [field ...]
+
+HDEL key field [field ...]
+
+HLEN key
+
+HKEYS key
+
+HVALS key
+
+HGETALL key - Get all keys and values, inteleaved.
