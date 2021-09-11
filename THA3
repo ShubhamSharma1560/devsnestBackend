@@ -1,0 +1,39 @@
+const fs = require("fs");
+
+const commands = {
+  mkdir: (dirname) => fs.mkdirSync(dirname),
+  write: (filename, content) => fs.writeFileSync(filename, content),
+  append: (filename, content) => fs.appendFileSync(filename, content),
+  read: (filename) => console.log(fs.readFileSync(filename, "utf-8")),
+  rename: (src, dest) => fs.renameSync(src, dest),
+  rm: (filename) => fs.rmSync(filename),
+  rmdir: (dirname) => fs.rmdirSync(dirname),
+};
+
+const requiresTwoArguments = ["write", "rename", "append"];
+function getNumberOfArguments(command) {
+  if (requiresTwoArguments.indexOf(command) == -1) {
+    return 1;
+  } else {
+    return 2;
+  }
+}
+
+const args = process.argv.slice(2);
+
+if (args.length == 0) {
+  console.log("Usage: node files.js COMMAND arg1 [arg2]");
+  console.log("COMMAND is one of mkdir, write, read, rename, rm, rmdir");
+  process.exit();
+}
+
+const [command, ...parameters] = args;
+if (!commands[command]) {
+  console.error(`Command ${command} not found!`);
+  process.exit(-1);
+}
+if (parameters.length != getNumberOfArguments(command)) {
+  console.error(`Invalid number of arguments!`);
+  process.exit(-1);
+}
+commands[command](...parameters);
